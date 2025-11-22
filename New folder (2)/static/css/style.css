@@ -1,0 +1,185 @@
+/* fonts */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Poppins:wght@300;600&display=swap');
+
+:root{
+  --bg1: #0f0c29;
+  --bg2: #302b63;
+  --neon-c1: #00f5ff;
+  --neon-c2: #ff00c1;
+  --glass: rgba(255,255,255,0.04);
+  --accent: linear-gradient(90deg,var(--neon-c1),var(--neon-c2));
+}
+
+/* reset */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+body{
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at 10% 10%, #020512 0%, #040814 10%, #070a1a 40%, #0a0f25 100%);
+  overflow: hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  perspective:1400px;
+  color:#e6f7ff;
+}
+
+/* canvas full */
+#bgCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* stage centers everything */
+.stage{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;height:100vh;width:100vw}
+
+/* INTRO overlay */
+.intro{
+  width:520px;
+  max-width:90%;
+  background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border-radius:18px;
+  padding:40px;
+  text-align:center;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 90px rgba(0,255,255,0.04);
+  transform-style:preserve-3d;
+  transform: translateZ(0);
+  animation: introPop 1200ms cubic-bezier(.17,.89,.32,1.28) both;
+}
+.logo{width:100px;margin:0 auto 10px;display:block}
+.intro h1{
+  font-family:'Orbitron',sans-serif;
+  letter-spacing:2px;
+  font-size:36px;
+  margin:6px 0;
+  color:var(--neon-c1);
+  text-shadow:0 0 18px rgba(0,245,255,0.18);
+}
+.lead{color:#cfefff;margin-bottom:20px}
+.small{color:#9fbcd3;margin-top:12px}
+
+/* hidden class toggles between intro and game */
+.hidden{display:none!important}
+
+/* card container */
+.game-root{display:flex;align-items:center;justify-content:center;min-height:60vh;}
+
+/* the neon card */
+.card{
+  width:420px;
+  max-width:94%;
+  padding:28px 26px;
+  border-radius:20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.6),
+    0 0 120px rgba(0,0,0,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.02);
+  transform-style:preserve-3d;
+  transform: translateZ(30px) rotateX(6deg) scale(0.98);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  animation: cardEntrance 1200ms cubic-bezier(.22,.9,.35,1) both;
+}
+
+/* hover lift */
+.card:hover{
+  transform: translateZ(60px) rotateX(3deg) scale(1.02);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.7), 0 0 140px rgba(0,0,0,0.2);
+}
+
+/* HUD */
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.title{font-family:'Orbitron',sans-serif;color:var(--neon-c1);font-weight:700}
+.attempts{font-size:14px;color:#bfefff}
+
+/* center area */
+.center{position:relative;padding:10px 0 6px}
+.glow-ring{
+  width:160px;height:160px;border-radius:50%;margin:0 auto 12px;
+  background: radial-gradient(circle at 35% 30%, rgba(0,245,255,0.15), transparent 30%), radial-gradient(circle at 70% 70%, rgba(255,0,193,0.09), transparent 35%);
+  box-shadow: 0 0 60px rgba(0,245,255,0.06), inset 0 2px 20px rgba(255,0,193,0.02);
+  transform: translateZ(80px) rotateX(-12deg);
+}
+
+/* prompt + input */
+.prompt{color:#bfefff;margin-bottom:8px;font-weight:600}
+input[type="number"]{
+  width:72%;
+  padding:14px 12px;
+  border-radius:12px;
+  border:none;
+  outline:none;
+  font-size:18px;
+  text-align:center;
+  background: rgba(255,255,255,0.02);
+  color:#eaffff;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.6), 0 6px 20px rgba(0,0,0,0.5);
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+input[type="number"]:focus{
+  box-shadow: 0 0 18px rgba(0,245,255,0.18), inset 0 4px 18px rgba(0,0,0,0.6);
+  transform: translateY(-2px);
+}
+
+/* buttons */
+.buttons{display:flex;gap:12px;justify-content:center;margin-top:14px}
+.btn{
+  cursor:pointer;
+  border-radius:12px;
+  padding:10px 18px;
+  font-weight:700;
+  letter-spacing:0.6px;
+  border: none;
+  outline: none;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+/* neon big */
+.btn.big{padding:14px 26px;font-size:16px}
+.btn.neon{
+  background: linear-gradient(90deg, rgba(0,245,255,0.12), rgba(255,0,193,0.10));
+  color:#fff;
+  box-shadow: 0 8px 30px rgba(0,245,255,0.08), 0 2px 0 rgba(0,0,0,0.8), 0 0 24px rgba(255,0,193,0.04);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.btn.ghost{
+  background: transparent;
+  color: #9ddcff;
+  border: 1px solid rgba(157,220,255,0.08);
+}
+
+/* pressed */
+.btn:active{transform: translateY(3px);box-shadow: 0 3px 10px rgba(0,0,0,0.6)}
+
+/* message */
+.message{
+  margin-top:16px;
+  min-height:36px;
+  padding:8px 14px;
+  border-radius:10px;
+  font-weight:700;
+  text-align:center;
+  color:#001825;
+  background: linear-gradient(90deg, rgba(0,245,255,0.35), rgba(255,0,193,0.35));
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  display:none;
+}
+
+/* small footer */
+.footer{margin-top:16px;text-align:center;color:#8fbfdc;opacity:0.9;font-size:12px}
+
+/* entrance animations */
+@keyframes cardEntrance {
+  0%{ transform: translateZ(0) rotateY(90deg) scale(0.86); opacity:0 }
+  50%{ transform: translateZ(60px) rotateY(-12deg) scale(1.06); opacity:1 }
+  100%{ transform: translateZ(30px) rotateY(0deg) scale(1) }
+}
+@keyframes introPop {
+  0%{ transform: translateY(40px) scale(0.96); opacity:0 }
+  60%{ transform: translateY(-8px) scale(1.02); opacity:1 }
+  100%{ transform: translateY(0) scale(1) }
+}
+
+/* responsive */
+@media (max-width:520px){
+  .card{width:92%}
+  .glow-ring{width:120px;height:120px}
+}
