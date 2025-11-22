@@ -40,4 +40,25 @@ full=np.full((2,3),4)
 print("Full=\n",full)
 
 # Identity Matrix(Square matrix)
-iden
+identity=np.eye(4)
+print("identity=\n",identity)
+
+# Empty Array (Generate random number as much you pass)
+
+print(np.empty(2))
+
+# Evenly Spaced Array (it will print 1,5 exclusive with the gap 2)
+
+print(np.arange(1,5,2))
+
+# specific value between range (it will print 1,10inclusice in 5 part)
+
+print(np.linspace(1,10,5))
+
+# random value array(It will print random value of type float in range 2,3)
+
+print(np.random.rand(2,3))
+
+#Random int array (it will print random number of shape 2,3 number between 1 to 10)
+
+print(np.random.randint(1,10,(3,2)))
